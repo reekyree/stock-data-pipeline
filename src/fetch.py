@@ -7,7 +7,6 @@ def fetch_data():
     # Drop the price column from yfinance data
     apple.columns = apple.columns.droplevel(1)
 
-
     # Save ticker data to csv
     apple.to_csv("data/raw/aapl_raw.csv", index_label="Date")
 

@@ -8,7 +8,6 @@ def analyze_data():
     # Retreive and display highest closing price
     query = """SELECT MAX(Close) FROM stocks"""
 
-
     print("Highest Close: ")
     print(conn.execute(query).fetchall())
 

@@ -18,7 +18,6 @@ def validate_data():
     # Remove rows
     data = data.dropna()
 
-
     # Check for an empty data set
     if data.empty:
         print("Data set is empty.")
