@@ -4,36 +4,28 @@
 
 import pandas as pd 
 
-# Retrieve csv
-data = pd.read_csv("data/raw/aapl_raw.csv")
+def validate_data():
 
-# Check for null values
-null_amounts = print(data.isnull().sum())
+    # Retrieve csv
+    data = pd.read_csv("data/raw/aapl_raw.csv")
 
-# Dispaly the number of null values 
-print(null_amounts)
+    # Check for null values
+    null_rows = data[data.isnull().any(axis=1)]
 
-# Run a check for the returned data type
-if null_amounts is None:
-    null_amounts = 0
+    # Display number of rows to be removed
+    print(f"Rows removed: {len(null_rows)}")
 
-# Display warning for user
-if null_amounts > 0:
-    print("Warning: Missing Values in Data")
+    # Remove rows
+    data = data.dropna()
 
-# Check for an empty data set
-if data.empty:
-    print("Data set is empty.")
 
-# Check for duplicate dates
-print("Duplicates Found: ")
-print(data.index.duplicated().sum())
+    # Check for an empty data set
+    if data.empty:
+        print("Data set is empty.")
 
-# Convert Date index into a column
-data.reset_index(inplace=True)
+    # Check for duplicates  
+    print("Duplicates Found: ")
+    print(data.index.duplicated().sum())
 
-# Check columns TEST
-print(data.columns)
-
-# Write validated data to csv in separate data folder
-data.to_csv("data/processed/aapl_clean.csv")
+    # Write validated data to csv in separate data folder
+    data.to_csv("data/processed/aapl_clean.csv", index=False)
